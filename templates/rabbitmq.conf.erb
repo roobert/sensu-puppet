@@ -1,0 +1,36 @@
+{
+  "rabbitmq": [
+    <%- scope.lookupvar('sensu::rabbitmq_hosts').each do |host| %>
+      <%- if host.has_key?('ssl') %>
+        <%- if host['ssl'].has_key?('private_key_file') && host['ssl'].has_key?('cert_chain_file') %>
+        "ssl": {
+          "private_key_file": "<%= host['ssl']['private_key_file'] %>",
+          "cert_chain_file": "<%= host['ssl']['cert_chain_file'] %>"
+        },
+        <%- end %>
+      <%- end -%>
+
+      <%- if host.has_key?('port') %>
+        "port": <%= host['port'] %>,
+      <%- end -%>
+
+      <%- if host.has_key?('host') %>
+        "host": <%= host['host'] %>,
+      <%- end -%>
+
+      <%- if host.has_key?('password') %>
+        "password": <%= host['password'] %>,
+      <%- end -%>
+
+      <%- if host.has_key?('vhost') %>
+        "vhost": <%= host['vhost'] %>,
+      <%- end -%>
+
+      <%- if host.has_key?('reconnect_on_error') %>
+        "reconnect_on_error": true
+      <%- else %>
+        "reconnect_on_error": false
+      <%- end %>
+    <%- end %>
+  ]
+}
