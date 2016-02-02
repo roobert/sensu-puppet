@@ -14,7 +14,7 @@
         "port": "<%= scope.lookupvar('sensu::rabbitmq_port') -%>",
       <%- end -%>
       <%- if host.has_key?('host') -%>
-        "host": <%= host['host'] -%>,
+        "host": "<%= host['host'] -%>",
       <%- elsif scope.lookupvar('sensu::rabbitmq_host') -%>
         "host": "<%= scope.lookupvar('sensu::rabbitmq_host') -%>",
       <%- end -%>
