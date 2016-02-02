@@ -47,7 +47,7 @@
       <%- else %>
         "reconnect_on_error": false
       <%- end %>
-      <%- if sensu::rabbitmq_hosts[-1] != host %>
+      <%- if scope.lookupvar('sensu::rabbitmq_hosts')[-1] != host %>
       },
       <%- else %>
       }
