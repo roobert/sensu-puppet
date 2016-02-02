@@ -8,31 +8,26 @@
           "cert_chain_file": "/etc/sensu/ssl/cert.pem"
         },
       <%- end -%>
-
       <%- if host.has_key?('port') -%>
         "port": <%= host['port'] -%>,
       <%- elsif scope.lookupvar('sensu::rabbitmq_port') -%>
         "port": "<%= scope.lookupvar('sensu::rabbitmq_port') -%>",
       <%- end -%>
-
       <%- if host.has_key?('host') -%>
         "host": <%= host['host'] -%>,
       <%- elsif scope.lookupvar('sensu::rabbitmq_host') -%>
         "host": "<%= scope.lookupvar('sensu::rabbitmq_host') -%>",
       <%- end -%>
-
       <%- if host.has_key?('password') -%>
         "password": <%= host['password'] -%>,
       <%- elsif scope.lookupvar('sensu::rabbitmq_password') -%>
         "password": "<%= scope.lookupvar('sensu::rabbitmq_password') -%>",
       <%- end -%>
-
       <%- if host.has_key?('vhost') -%>
         "vhost": <%= host['vhost'] -%>,
       <%- elsif scope.lookupvar('sensu::rabbitmq_vhost') -%>
         "vhost": "<%= scope.lookupvar('sensu::rabbitmq_vhost') -%>",
       <%- end -%>
-
       <%- if host.has_key?('reconnect_on_error') -%>
         "reconnect_on_error": true
       <%- elsif scope.lookupvar('sensu::rabbitmq_reconnect_on_error') -%>
