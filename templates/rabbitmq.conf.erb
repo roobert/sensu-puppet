@@ -1,8 +1,8 @@
 {
   "rabbitmq": [
-    <%- scope.lookupvar('sensu::rabbitmq_hosts').each do |host| %>
+    <%- scope.lookupvar('sensu::rabbitmq_hosts').each do |host| -%>
       {
-      <%- if host.has_key?('ssl') %>
+      <%- if host.has_key?('ssl') -%>
         "ssl": {
           "private_key_file": "/etc/sensu/ssl/key.pem",
           "cert_chain_file": "/etc/sensu/ssl/cert.pem"
@@ -10,41 +10,41 @@
       <%- end -%>
 
       <%- if host.has_key?('port') -%>
-        "port": <%= host['port'] %>,
+        "port": <%= host['port'] -%>,
       <%- elsif scope.lookupvar('sensu::rabbitmq_port') -%>
-        "port": "<%= scope.lookupvar('sensu::rabbitmq_port') %>",
+        "port": "<%= scope.lookupvar('sensu::rabbitmq_port') -%>",
       <%- end -%>
 
       <%- if host.has_key?('host') -%>
         "host": <%= host['host'] -%>,
       <%- elsif scope.lookupvar('sensu::rabbitmq_host') -%>
-        "host": "<%= scope.lookupvar('sensu::rabbitmq_host') %>",
+        "host": "<%= scope.lookupvar('sensu::rabbitmq_host') -%>",
       <%- end -%>
 
-      <%- if host.has_key?('password') %>
-        "password": <%= host['password'] %>,
-      <%- elsif scope.lookupvar('sensu::rabbitmq_password') %>
-        "password": "<%= scope.lookupvar('sensu::rabbitmq_password') %>",
+      <%- if host.has_key?('password') -%>
+        "password": <%= host['password'] -%>,
+      <%- elsif scope.lookupvar('sensu::rabbitmq_password') -%>
+        "password": "<%= scope.lookupvar('sensu::rabbitmq_password') -%>",
       <%- end -%>
 
-      <%- if host.has_key?('vhost') %>
-        "vhost": <%= host['vhost'] %>,
-      <%- elsif scope.lookupvar('sensu::rabbitmq_vhost') %>
-        "vhost": "<%= scope.lookupvar('sensu::rabbitmq_vhost') %>",
+      <%- if host.has_key?('vhost') -%>
+        "vhost": <%= host['vhost'] -%>,
+      <%- elsif scope.lookupvar('sensu::rabbitmq_vhost') -%>
+        "vhost": "<%= scope.lookupvar('sensu::rabbitmq_vhost') -%>",
       <%- end -%>
 
-      <%- if host.has_key?('reconnect_on_error') %>
+      <%- if host.has_key?('reconnect_on_error') -%>
         "reconnect_on_error": true
-      <%- elsif scope.lookupvar('sensu::rabbitmq_reconnect_on_error') %>
-        "reconnect_on_error": "<%= scope.lookupvar('sensu::rabbitmq_reconnect_on_error') %>",
-      <%- else %>
+      <%- elsif scope.lookupvar('sensu::rabbitmq_reconnect_on_error') -%>
+        "reconnect_on_error": "<%= scope.lookupvar('sensu::rabbitmq_reconnect_on_error') -%>",
+      <%- else -%>
         "reconnect_on_error": false
-      <%- end %>
-      <%- if scope.lookupvar('sensu::rabbitmq_hosts')[-1] != host %>
+      <%- end -%>
+      <%- if scope.lookupvar('sensu::rabbitmq_hosts')[-1] != host -%>
       },
-      <%- else %>
+      <%- else -%>
       }
-      <%- end %>
-    <%- end %>
+      <%- end -%>
+    <%- end -%>
   ]
 }
