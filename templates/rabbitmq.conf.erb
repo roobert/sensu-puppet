@@ -29,11 +29,11 @@
         "vhost": "<%= scope.lookupvar('sensu::rabbitmq_vhost') -%>",
       <%- end -%>
       <%- if host.has_key?('reconnect_on_error') -%>
-        "reconnect_on_error": true
-      <%- elsif scope.lookupvar('sensu::rabbitmq_reconnect_on_error') -%>
-        "reconnect_on_error": "<%= scope.lookupvar('sensu::rabbitmq_reconnect_on_error') -%>",
-      <%- else -%>
-        "reconnect_on_error": false
+        <%- if host['reconnect_on_error'] == 'true' || host['reconnect_on_error'] == true -%>
+          "reconnect_on_error": true
+        <%- else -%>
+          "reconnect_on_error": false
+        <%- end -%>
       <%- end -%>
       <%- if scope.lookupvar('sensu::rabbitmq_hosts')[-1] != host -%>
       },
