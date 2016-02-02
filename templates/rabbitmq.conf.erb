@@ -3,19 +3,10 @@
     <%- scope.lookupvar('sensu::rabbitmq_hosts').each do |host| %>
       {
       <%- if host.has_key?('ssl') %>
-        <%- if host['ssl'].is_a?(Hash) %>
-          <%- if host['ssl'].has_key?('private_key_file') && host['ssl'].has_key?('cert_chain_file') -%>
-            "ssl": {
-              "private_key_file": "<%= host['ssl']['private_key_file'] %>",
-              "cert_chain_file": "<%= host['ssl']['cert_chain_file'] %>"
-            },
-          <%- end -%>
-        <%- elsif scope.lookupvar('sensu::rabbitmq_ssl_private_key') && scope.lookupvar('sensu::rabbitmq_ssl_cert_chain') -%>
         "ssl": {
-          "private_key_file": "<%= scope.lookupvar('sensu::rabbitmq_ssl_private_key') %>",
-          "cert_chain_file": "<%= scope.lookupvar('sensu::rabbitmq_ssl_cert_chain') %>"
+          "private_key_file": "/etc/sensu/ssl/key.pem",
+          "cert_chain_file": "/etc/sensu/ssl/cert.pem"
         },
-        <%- end -%>
       <%- end -%>
 
       <%- if host.has_key?('port') -%>
