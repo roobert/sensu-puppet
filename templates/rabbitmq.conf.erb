@@ -33,8 +33,8 @@
       <%- elsif scope.lookupvar('sensu::rabbitmq_vhost') -%>
         "vhost": "<%= scope.lookupvar('sensu::rabbitmq_vhost') -%>",
       <%- end -%>
-      <%- if host.has_key?('reconnect_on_error') -%>
-        <%- if host['reconnect_on_error'] == 'true' || host['reconnect_on_error'] == true -%>
+      <%- if host.has_key?('reconnect_on_error') || scope.lookupvar('sensu::rabbitmq_reconnect_on_error') -%>
+        <%- if host['reconnect_on_error'] == 'true' || host['reconnect_on_error'] == true || scope.lookupvar('sensu::rabbitmq_reconnect_on_error') == 'true' || scope.lookupvar('sensu::rabbitmq_reconnect_on_error') == true -%>
           "reconnect_on_error": true
         <%- end -%>
       <%- else -%>
