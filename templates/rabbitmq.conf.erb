@@ -1,29 +1,30 @@
 {
   "rabbitmq": [
     <%- scope.lookupvar('sensu::rabbitmq_hosts').each do |host| %>
+      {
       <%- if host.has_key?('ssl') %>
-        <%- if host['ssl'].has_key?('private_key_file') && host['ssl'].has_key?('cert_chain_file') %>
+        <%- if host['ssl'].has_key?('private_key_file') && host['ssl'].has_key?('cert_chain_file') -%>
         "ssl": {
           "private_key_file": "<%= host['ssl']['private_key_file'] %>",
           "cert_chain_file": "<%= host['ssl']['cert_chain_file'] %>"
         },
-        <%- elsif scope.lookupvar('sensu::rabbitmq_private_key_file') && scope.lookupvar('sensu::rabbitmq_cert_chain_file') %>
+        <%- elsif scope.lookupvar('sensu::rabbitmq_ssl_private_key') && scope.lookupvar('sensu::rabbitmq_ssl_cert_chain') -%>
         "ssl": {
-          "private_key_file": "<%= scope.lookupvar('sensu::rabbitmq_private_key_file') %>",
-          "cert_chain_file": "<%= scope.lookupvar('sensu::rabbitmq_cert_chain_file') %>"
+          "private_key_file": "<%= scope.lookupvar('sensu::rabbitmq_ssl_private_key') %>",
+          "cert_chain_file": "<%= scope.lookupvar('sensu::rabbitmq_ssl_cert_chain') %>"
         },
-        <%- end %>
+        <%- end -%>
       <%- end -%>
 
-      <%- if host.has_key?('port') %>
+      <%- if host.has_key?('port') -%>
         "port": <%= host['port'] %>,
-      <%- elsif scope.lookupvar('sensu::rabbitmq_port') %>
+      <%- elsif scope.lookupvar('sensu::rabbitmq_port') -%>
         "port": "<%= scope.lookupvar('sensu::rabbitmq_port') %>",
       <%- end -%>
 
-      <%- if host.has_key?('host') %>
-        "host": <%= host['host'] %>,
-      <%- elsif scope.lookupvar('sensu::rabbitmq_host') %>
+      <%- if host.has_key?('host') -%>
+        "host": <%= host['host'] -%>,
+      <%- elsif scope.lookupvar('sensu::rabbitmq_host') -%>
         "host": "<%= scope.lookupvar('sensu::rabbitmq_host') %>",
       <%- end -%>
 
@@ -45,6 +46,11 @@
         "reconnect_on_error": "<%= scope.lookupvar('sensu::rabbitmq_reconnect_on_error') %>",
       <%- else %>
         "reconnect_on_error": false
+      <%- end %>
+      <%- if sensu::rabbitmq_hosts[-1] != host %>
+      },
+      <%- else %>
+      }
       <%- end %>
     <%- end %>
   ]
