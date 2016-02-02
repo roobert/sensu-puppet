@@ -18,6 +18,11 @@
       <%- elsif scope.lookupvar('sensu::rabbitmq_host') -%>
         "host": "<%= scope.lookupvar('sensu::rabbitmq_host') -%>",
       <%- end -%>
+      <%- if host.has_key?('user') -%>
+        "user": <%= host['user'] -%>,
+      <%- elsif scope.lookupvar('sensu::rabbitmq_user') -%>
+        "user": "<%= scope.lookupvar('sensu::rabbitmq_user') -%>",
+      <%- end -%>
       <%- if host.has_key?('password') -%>
         "password": <%= host['password'] -%>,
       <%- elsif scope.lookupvar('sensu::rabbitmq_password') -%>
