@@ -98,14 +98,6 @@ class sensu::rabbitmq::config {
     $enable_ssl = $sensu::rabbitmq_ssl
   }
 
-  file { '/etc/sensu/conf.d/rabbitmq.json':
-    ensure => $ensure,
-    owner  => 'sensu',
-    group  => 'sensu',
-    mode   => '0440',
-    before => Sensu_rabbitmq_config[$::fqdn],
-  }
-
   if ! $sensu::rabbitmq_hosts {
     sensu_rabbitmq_config { $::fqdn:
       ensure             => $ensure,
