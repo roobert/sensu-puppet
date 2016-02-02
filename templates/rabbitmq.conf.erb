@@ -31,9 +31,9 @@
       <%- if host.has_key?('reconnect_on_error') -%>
         <%- if host['reconnect_on_error'] == 'true' || host['reconnect_on_error'] == true -%>
           "reconnect_on_error": true
-        <%- else -%>
-          "reconnect_on_error": false
         <%- end -%>
+      <%- else -%>
+        "reconnect_on_error": false
       <%- end -%>
       <%- if scope.lookupvar('sensu::rabbitmq_hosts')[-1] != host -%>
       },
