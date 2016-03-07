@@ -3,10 +3,12 @@
     <%- scope.lookupvar('sensu::rabbitmq_hosts').each do |host| -%>
       {
       <%- if host.has_key?('ssl') -%>
+        <%- if host['ssl'] -%>
         "ssl": {
           "private_key_file": "/etc/sensu/ssl/key.pem",
           "cert_chain_file": "/etc/sensu/ssl/cert.pem"
         },
+        <%- end -%>
       <%- end -%>
       <%- if host.has_key?('port') -%>
         "port": <%= host['port'] -%>,
